@@ -12,6 +12,16 @@ export const listTipoVehiculo = async (req, res) => {
 
 export const createTipoVehiculo = async (req, res) => {
   const { nombre, cupo } = req.body
+
+  try {
+    const [result] = await pool.query("SELECT * FROM tipo_vehiculo WHERE nombre = ?", [nombre])
+
+    if (result.length > 0) return res.status(400).json({ message: 'Ya existe un vehiculo con este nombre' })
+
+  } catch (error) {
+    return res.status(500).json({ message: error.message }) 
+  }
+  
   try {
     const query = await pool.query(
       "INSERT INTO tipo_vehiculo (nombre, cupo) VALUES (?, ?)",

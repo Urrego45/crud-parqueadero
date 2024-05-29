@@ -10,6 +10,7 @@ const router = express.Router()
 router.get('/parqueadero', parqueaderoController.listParqueadero)
 router.post('/parqueadero', validateSchema(guardarParqueaderoSchema), parqueaderoController.createParqueadero)
 router.put('/parqueadero/:id', validateSchema(editarParqueaderoSchema), parqueaderoController.updateParqueadero)
+router.put('/parqueadero/retiro/:id', parqueaderoController.updateParqueaderoRetiro)
 router.delete('/parqueadero/:id', parqueaderoController.deleteParqueadero)
 
 
