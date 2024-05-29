@@ -11,7 +11,7 @@ export const tipoVehiculoSchema = z.object({
     }),
     cupo: z.number({
         required_error: 'El "Cupo" es requerido.',
-        invalid_type_error: 'El "Cupo" debe de ser un numero.',
+        invalid_type_error: 'El "Cupo" debe de ser un número.',
     }).min(1, {
         message: 'El cupo debe ser mayor a 1.'
     })

@@ -27,9 +27,12 @@ export const createParqueadero = async (req, res) => {
 
   try {
     const [[query]] = await pool.query(
-      "select if( (SELECT COUNT(id) as horas FROM parqueadero where hora_salida is null and vehiculo = ?) <= (select cupo from tipo_vehiculo where id = ?), null, 0) as validacion",
-      [vehiculo, vehiculo]
+      `select if(
+        (SELECT COUNT(id) as horas FROM parqueadero where hora_salida is null and vehiculo = ${vehiculo}) < 
+        (select cupo from tipo_vehiculo where id = ${vehiculo}), null, 0) as validacion`,
     )
+
+    console.log(query);
 
     if (query.validacion === 0) return res.status(400).json({ message: 'No hay cupos disponibles en este momento.' })
 

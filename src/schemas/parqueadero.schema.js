@@ -3,7 +3,7 @@ import { z } from 'zod';
 export const guardarParqueaderoSchema = z.object({
     vehiculo: z.number({
         required_error: 'El "Tipo de vehiculo" es obligatorio.',
-        invalid_type_error: 'El "Tipo de vehiculo" debe de ser un numero.',
+        invalid_type_error: 'El "Tipo de vehiculo" debe de ser un número.',
     }),
     placa: z.string({
         required_error: 'El "Tipo de vehiculo" es obligatorio.',
