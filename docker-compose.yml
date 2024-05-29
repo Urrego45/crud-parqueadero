@@ -1,0 +1,42 @@
+version: "3.8"
+services:
+  mysql:
+    container_name: mysql
+    image: mysql:8
+    restart: unless-stopped
+    env_file: ./.env
+    environment:
+      - MYSQL_PASSWORD=$PASSWORD_DATABASE
+      - MYSQL_ROOT_PASSWORD=$PASSWORD_DATABASE
+      - MYSQL_DATABASE=$DATABASE_NAME
+
+    ports:
+      - $PORT_DATABASE:$PORT_DATABASE
+    volumes:
+      - mysql:/var/lib/mysql
+      - ./database/:/docker-entrypoint-initdb.d/
+    logging:
+      driver: none
+
+  app:
+    container_name: app
+    depends_on:
+      - mysql
+    restart: unless-stopped
+    env_file: ./.env
+    build: .
+    ports:
+      - 3000:3000
+    environment:
+      - DB_HOST=$HOST_DATABASE
+      - DB_USER=$USER_DATABASE
+      - DB_PASSWORD=$PASSWORD_DATABASE
+      - DB_NAME=$DATABASE_NAME
+      - DB_PORT=$PORT_DATABASE
+    stdin_open: true
+    tty: true
+    volumes:
+      - ./:/app
+
+volumes:
+  mysql:
