@@ -10,7 +10,7 @@ docker compose up
 
 ## Install DB:
   ## In conainer docker MySQL:
- `prueba_tecnica_dump.sql` copy and paste in sql termial.
+ `parqueadero_crud.sql` copy and paste in sql termial.
  
  ## Change the credentials in the archive .env
 
